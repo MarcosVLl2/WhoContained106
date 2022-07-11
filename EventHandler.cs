@@ -9,11 +9,6 @@ namespace WhoContained106
         private static readonly Config config = WhoContained106.Singleton.Config;
         public string playername;
         public RoleType playerrole;
-        public void OnRoundStarted()
-        {
-            playername = null;
-            playerrole = RoleType.None;
-        }
         public void OnRoundEnded(RoundEndedEventArgs _)
         {
             playername = null;
@@ -29,10 +24,7 @@ namespace WhoContained106
         }
         public void Containing(ContainingEventArgs _)
         {
-            foreach (var Player in Player.List)
-            {
-                Player.Broadcast(new Exiled.API.Features.Broadcast(config.Message.Replace("{Player}", playername).Replace("{Role}", playerrole.ToString()), config.MessageDurationInSeconds, true), true);
-            }
+            Map.Broadcast(new Exiled.API.Features.Broadcast(config.Message.Replace("{Player}", playername).Replace("{Role}", playerrole.ToString()), config.MessageDurationInSeconds, true), true);
         }
     }
 }
